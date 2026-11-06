@@ -1,39 +1,18 @@
-/* JOCK / 乔昶旭 — 主页脚本
+/* JOCK / 乔昶旭 — 脚本
    渐进增强：无 JS 时页面完整可用。
-   粒子 canvas + 待定按钮提示 + reduced-motion 尊重。 */
+   粒子 canvas + reduced-motion 尊重。 */
 
 (function () {
   "use strict";
-
-  /* ---------- 待定按钮提示 ---------- */
-  var soonButtons = document.querySelectorAll("[data-coming-soon]");
-  soonButtons.forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      // 简单的一次性 toast（无依赖）
-      var toast = document.createElement("div");
-      toast.textContent = "即将上线";
-      toast.setAttribute("role", "status");
-      toast.style.cssText =
-        "position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);" +
-        "background:var(--color-ink);color:var(--color-bg);" +
-        "padding:0.75rem 1.5rem;border-radius:4px;font-size:1rem;" +
-        "z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.15);" +
-        "transition:opacity 240ms cubic-bezier(0.33,1,0.68,1);";
-      document.body.appendChild(toast);
-      setTimeout(function () {
-        toast.style.opacity = "0";
-        setTimeout(function () {
-          if (toast.parentNode) toast.parentNode.removeChild(toast);
-        }, 260);
-      }, 1600);
-    });
-  });
 
   /* ---------- 粒子 canvas（仅在允许动效时启动） ---------- */
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   var canvas = document.getElementById("particles");
   if (!canvas || !canvas.getContext) return;
+
+  /* 粒子属于首屏装饰：关于子页不启用 */
+  if (!document.querySelector(".hero")) return;
   var ctx = canvas.getContext("2d");
 
   var DPR = Math.min(window.devicePixelRatio || 1, 2);

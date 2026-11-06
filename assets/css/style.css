@@ -225,6 +225,45 @@ main {
   color: var(--color-bg);
 }
 
+/* ---------- 顶栏：名字 + 座右铭（低调置于左上角） ---------- */
+.masthead {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  pointer-events: none; /* 让下方粒子可以穿透显示 */
+}
+.masthead__brand {
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-5) var(--space-6);
+  color: var(--color-ink);
+  text-decoration: none;
+  line-height: 1.2;
+}
+.masthead__brand:hover .masthead__name,
+.masthead__brand:focus-visible .masthead__name {
+  color: var(--color-accent);
+}
+.masthead__name {
+  font-size: var(--step-2);
+  font-weight: 700;
+}
+.masthead__name-en {
+  font-size: var(--step-1);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--color-ink-soft);
+}
+.masthead__motto {
+  font-size: var(--step-0);
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
 /* ---------- 区块通用 ---------- */
 .section {
   padding-top: var(--space-9);
@@ -252,54 +291,23 @@ main {
   align-items: center;
   justify-content: center;
   text-align: center;
-  padding-block: var(--space-8);
-}
-.hero__name-cn {
-  font-size: var(--step-4);
-  font-weight: 700;
-  line-height: 1.15;
-  text-wrap: balance;
-}
-.hero__name-en {
-  font-size: var(--step-5);
-  font-weight: 700;
-  line-height: 0.95;
-  letter-spacing: 0.08em;
-  text-wrap: balance;
-  margin-top: var(--space-3);
-}
-.hero__motto {
-  font-size: var(--step-3);
-  font-weight: 700;
-  text-wrap: balance;
-  margin-top: var(--space-7);
+  padding: var(--space-8) var(--space-6) var(--space-6);
 }
 .hero__cta {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-4);
-  margin-top: var(--space-8);
-}
-.hero__hint {
-  margin-top: var(--space-6);
-  font-size: var(--step-0);
-  color: var(--color-muted);
 }
 
 /* ---------- 入场动画（一个序列，CSS 渐进增强） ---------- */
 @media (prefers-reduced-motion: no-preference) {
-  .hero__name-cn,
-  .hero__name-en,
-  .hero__motto,
-  .hero__cta {
+  .hero__cta,
+  .masthead__brand {
     animation: rise var(--dur-entrance) var(--ease-expo) backwards;
   }
-  .hero__name-en {
-    animation-delay: 110ms;
-  }
-  .hero__motto {
-    animation-delay: 220ms;
+  .masthead__brand {
+    animation-delay: 0ms;
   }
   .hero__cta {
     animation-delay: 330ms;
@@ -454,6 +462,9 @@ main {
   }
   .btn {
     width: 100%;
+  }
+  .masthead__brand {
+    padding: var(--space-4);
   }
 }
 

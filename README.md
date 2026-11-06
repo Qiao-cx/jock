@@ -12,7 +12,7 @@ npx --yes http-server . -p 8000 -c-1
 ## 结构
 
 ```
-index.html   主页（乔昶旭 → JOCK → 座右铭 → 关于我 / 待定 / 联系我）
+index.html   主页（左上角名字 + 座右铭 → 关于我 / 联系我）
 about.html   关于我子页
 assets/
   css/style.css
