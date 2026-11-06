@@ -13,7 +13,7 @@
 
   var COLS = 20;
   var ROWS = 20;
-  var CELL = 20;
+  var CELL = 26;
   var DPR = Math.min(window.devicePixelRatio || 1, 2);
 
   canvas.width = COLS * CELL * DPR;
@@ -36,6 +36,7 @@
   var dead = false;
   var timer = null;
   var speed = 140;
+  var hasStarted = false;
 
   var scoreEl = document.getElementById("score");
   var bestEl = document.getElementById("best");
@@ -74,6 +75,15 @@
     spawnFood();
     updateScore();
     draw();
+  }
+
+  function begin() {
+    reset();
+    running = true;
+    hasStarted = true;
+    if (timer) clearInterval(timer);
+    timer = setInterval(step, speed);
+    startBtn.textContent = "再来一局";
   }
 
   function restartTimer() {
@@ -127,10 +137,10 @@
     ctx.fillStyle = BG;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
-    ctx.font = "700 22px sans-serif";
-    ctx.fillText("游戏结束", (COLS * CELL) / 2, (ROWS * CELL) / 2 - 14);
-    ctx.font = "15px sans-serif";
-    ctx.fillText("得分 " + score + " · 最高 " + best, (COLS * CELL) / 2, (ROWS * CELL) / 2 + 18);
+    ctx.font = "700 26px sans-serif";
+    ctx.fillText("游戏结束", (COLS * CELL) / 2, (ROWS * CELL) / 2 - 18);
+    ctx.font = "18px sans-serif";
+    ctx.fillText("得分 " + score + " · 最高 " + best, (COLS * CELL) / 2, (ROWS * CELL) / 2 + 24);
     startBtn.textContent = "再来一局";
   }
 
@@ -178,11 +188,18 @@
     D: { x: 1, y: 0 }
   };
 
+  /* 方向键 / WASD：未开始时按下任一方向键即自动开局 */
   document.addEventListener("keydown", function (e) {
     var nd = KEYS[e.key];
     if (!nd) return;
     e.preventDefault();
-    if (running && !dead) nextDir = nd;
+    if (dead) begin();
+    else if (!running) {
+      begin();
+      nextDir = nd;
+    } else {
+      nextDir = nd;
+    }
   });
 
   /* 触屏方向键 */
@@ -195,18 +212,23 @@
   document.querySelectorAll(".pad-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
       var nd = DIR_MAP[btn.dataset.dir];
-      if (nd && running && !dead) nextDir = nd;
+      if (!nd) return;
+      if (dead) begin();
+      else if (!running) {
+        begin();
+        nextDir = nd;
+      } else {
+        nextDir = nd;
+      }
     });
   });
 
-  /* 开始 / 重开 */
+  /* 开始 / 重开按钮 */
   startBtn.addEventListener("click", function () {
-    reset();
-    running = true;
-    if (timer) clearInterval(timer);
-    timer = setInterval(step, speed);
-    startBtn.textContent = "游戏中…";
+    if (running && !dead) return; /* 游戏中忽略 */
+    begin();
   });
 
-  reset();
+  /* 页面打开即自动开局 */
+  begin();
 })();
