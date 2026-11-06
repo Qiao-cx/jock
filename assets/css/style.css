@@ -730,6 +730,42 @@ main {
 .pad-btn[data-dir="right"] { grid-column: 3; grid-row: 2; }
 .pad-btn[data-dir="down"]  { grid-column: 2; grid-row: 3; }
 
+/* ---------- 微信公众号 ---------- */
+.wechat {
+  max-width: 520px;
+  margin-inline: auto;
+  border: 1px solid var(--color-hairline);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  padding: var(--space-7) var(--space-6);
+  text-align: center;
+}
+.wechat__label {
+  font-size: var(--step-0);
+  font-weight: 400;
+  color: var(--color-muted);
+  letter-spacing: 0.08em;
+}
+.wechat__id {
+  margin-top: var(--space-3);
+  font-size: var(--step-3);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-ink);
+  font-variant-numeric: tabular-nums;
+  word-break: break-all;
+}
+.wechat__actions {
+  margin-top: var(--space-5);
+}
+.wechat__hint {
+  margin-top: var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-hairline);
+  font-size: var(--step-0);
+  color: var(--color-muted);
+}
+
 /* ---------- 响应式 ---------- */
 @media (max-width: 640px) {
   .hero__cta {

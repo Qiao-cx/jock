@@ -29,6 +29,32 @@
     setInterval(tick, 1000);
   }
 
+  /* ---------- 复制文本 ---------- */
+  document.querySelectorAll("[data-copy]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var target = document.getElementById(btn.getAttribute("data-copy"));
+      if (!target) return;
+      var text = target.textContent.trim();
+      var done = function () {
+        var label = btn.textContent;
+        btn.textContent = "已复制";
+        setTimeout(function () {
+          btn.textContent = label;
+        }, 1600);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, done);
+        return;
+      }
+      var range = document.createRange();
+      range.selectNodeContents(target);
+      var sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      done();
+    });
+  });
+
   /* ---------- 敬请期待按钮提示 ---------- */
   document.querySelectorAll("[data-coming-soon]").forEach(function (btn) {
     btn.addEventListener("click", function () {
