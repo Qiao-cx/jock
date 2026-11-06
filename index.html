@@ -24,9 +24,18 @@
   <main id="main" class="hero">
     <div class="hero__cta">
       <a class="btn btn--primary" href="about.html">关于我</a>
-      <a class="btn btn--primary" href="mailto:dau4wuqlan9066@gmail.com">联系我</a>
+      <button class="btn btn--primary" type="button" data-dialog-open="contact-dialog">联系我</button>
     </div>
   </main>
+
+  <dialog class="contact" id="contact-dialog" aria-labelledby="contact-title">
+    <h2 class="contact__title" id="contact-title">联系方式</h2>
+    <p class="contact__email" id="contact-email">dau4wuqlan9066@gmail.com</p>
+    <div class="contact__actions">
+      <button class="btn btn--primary" type="button" data-copy="contact-email" autofocus>复制邮箱</button>
+      <button class="btn" type="button" data-dialog-close>关闭</button>
+    </div>
+  </dialog>
 
   <time class="clock" id="clock"></time>
 

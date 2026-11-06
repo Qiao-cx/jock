@@ -29,6 +29,31 @@
     setInterval(tick, 1000);
   }
 
+  /* ---------- 弹窗（联系我） ---------- */
+  document.querySelectorAll("[data-dialog-open]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var dialog = document.getElementById(btn.getAttribute("data-dialog-open"));
+      if (!dialog) return;
+      if (typeof dialog.showModal === "function") {
+        dialog.showModal();
+      } else {
+        dialog.setAttribute("open", "");
+      }
+    });
+  });
+  document.querySelectorAll("[data-dialog-close]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var dialog = btn.closest("dialog");
+      if (dialog) dialog.close();
+    });
+  });
+  document.querySelectorAll("dialog").forEach(function (dialog) {
+    /* 点击遮罩关闭 */
+    dialog.addEventListener("click", function (e) {
+      if (e.target === dialog) dialog.close();
+    });
+  });
+
   /* ---------- 复制文本 ---------- */
   document.querySelectorAll("[data-copy]").forEach(function (btn) {
     btn.addEventListener("click", function () {
