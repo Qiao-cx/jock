@@ -29,6 +29,29 @@
     setInterval(tick, 1000);
   }
 
+  /* ---------- 敬请期待按钮提示 ---------- */
+  document.querySelectorAll("[data-coming-soon]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      // 简单的一次性 toast（无依赖）
+      var toast = document.createElement("div");
+      toast.textContent = "敬请期待";
+      toast.setAttribute("role", "status");
+      toast.style.cssText =
+        "position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);" +
+        "background:var(--color-ink);color:var(--color-bg);" +
+        "padding:0.75rem 1.5rem;border-radius:4px;font-size:1rem;" +
+        "z-index:200;box-shadow:0 4px 16px rgba(0,0,0,0.15);" +
+        "transition:opacity 240ms cubic-bezier(0.33,1,0.68,1);";
+      document.body.appendChild(toast);
+      setTimeout(function () {
+        toast.style.opacity = "0";
+        setTimeout(function () {
+          if (toast.parentNode) toast.parentNode.removeChild(toast);
+        }, 260);
+      }, 1600);
+    });
+  });
+
   /* ---------- 粒子 canvas（仅在允许动效时启动） ---------- */
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 

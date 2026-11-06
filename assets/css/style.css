@@ -320,8 +320,16 @@ main {
     animation-delay: 330ms;
   }
 
-  .page__header {
+  .page__header,
+  .stats,
+  .about-actions {
     animation: rise var(--dur-entrance) var(--ease-expo) backwards;
+  }
+  .stats {
+    animation-delay: 120ms;
+  }
+  .about-actions {
+    animation-delay: 240ms;
   }
 }
 
@@ -378,6 +386,59 @@ main {
   font-size: var(--step-4);
   font-weight: 700;
   text-wrap: balance;
+}
+
+/* ---------- 关于我：基本档案 ---------- */
+.stats {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: center;
+  gap: var(--space-5);
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-7);
+}
+.stats__item {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-2);
+}
+.stats__item + .stats__item {
+  position: relative;
+}
+.stats__item + .stats__item::before {
+  content: "";
+  position: absolute;
+  left: calc(-0.5 * var(--space-5));
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: 1.1em;
+  background: var(--color-hairline);
+}
+.stats__label {
+  color: var(--color-muted);
+  font-size: var(--step-1);
+}
+.stats__value {
+  font-size: var(--step-3);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------- 关于我：四宫格 ---------- */
+.about-actions {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-4);
+  max-width: 480px;
+  margin-inline: auto;
+  padding-bottom: var(--space-4);
+}
+.about-actions__btn {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  font-size: var(--step-2);
 }
 
 .grid {
