@@ -214,16 +214,6 @@ main {
 .btn:active {
   transform: translateY(1px);
 }
-.btn--primary {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-bg);
-}
-.btn--primary:hover {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-  color: var(--color-bg);
-}
 
 /* ---------- 顶栏：名字 + 座右铭（低调置于左上角） ---------- */
 .masthead {
@@ -243,10 +233,6 @@ main {
   color: var(--color-ink);
   text-decoration: none;
   line-height: 1.2;
-}
-.masthead__brand:hover .masthead__name,
-.masthead__brand:focus-visible .masthead__name {
-  color: var(--color-accent);
 }
 .masthead__name {
   font-size: var(--step-2);
