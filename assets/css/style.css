@@ -92,6 +92,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  overflow-x: clip; /* 防粒子/装饰层意外引发横向滚动 */
 }
 
 /* 平滑滚动只在「允许动效」时开 */
@@ -244,6 +245,7 @@ main {
 /* ---------- 主页 Hero ---------- */
 .hero {
   min-height: 100vh;
+  min-height: 100svh; /* 移动端避开浏览器工具栏，防顶边被裁剪 */
   display: flex;
   flex-direction: column;
   align-items: center;
