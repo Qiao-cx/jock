@@ -214,6 +214,16 @@ main {
 .btn:active {
   transform: translateY(1px);
 }
+.btn--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+.btn--primary:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-bg);
+}
 
 /* ---------- 顶栏：名字 + 座右铭（低调置于左上角） ---------- */
 .masthead {
@@ -284,6 +294,17 @@ main {
   flex-wrap: wrap;
   justify-content: center;
   gap: var(--space-4);
+}
+
+/* ---------- 右下角时钟 ---------- */
+.clock {
+  position: fixed;
+  right: var(--space-6);
+  bottom: var(--space-6);
+  z-index: 40;
+  font-size: var(--step-0);
+  color: var(--color-muted);
+  font-variant-numeric: tabular-nums;
 }
 
 /* ---------- 入场动画（一个序列，CSS 渐进增强） ---------- */
@@ -451,6 +472,10 @@ main {
   }
   .masthead__brand {
     padding: var(--space-4);
+  }
+  .clock {
+    right: var(--space-4);
+    bottom: var(--space-4);
   }
 }
 

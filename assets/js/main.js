@@ -5,6 +5,30 @@
 (function () {
   "use strict";
 
+  /* ---------- 右下角实时时钟 ---------- */
+  var clock = document.getElementById("clock");
+  if (clock) {
+    function pad(n) {
+      return n < 10 ? "0" + n : "" + n;
+    }
+    function tick() {
+      var now = new Date();
+      var text =
+        now.getFullYear() + "年" +
+        (now.getMonth() + 1) + "月" +
+        now.getDate() + "日 " +
+        pad(now.getHours()) + ":" +
+        pad(now.getMinutes()) + ":" +
+        pad(now.getSeconds());
+      if (clock.textContent !== text) {
+        clock.textContent = text;
+        clock.setAttribute("datetime", now.toISOString());
+      }
+    }
+    tick();
+    setInterval(tick, 1000);
+  }
+
   /* ---------- 粒子 canvas（仅在允许动效时启动） ---------- */
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
