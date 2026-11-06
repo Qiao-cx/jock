@@ -22,16 +22,30 @@
   <main id="main" class="page container">
     <article class="resume">
       <header class="resume__header">
-        <h1 class="resume__name">乔昶旭</h1>
-        <p class="resume__meta">
-          <span>出生日期 2004.3.15</span>
-          <span>手机 <a href="tel:16624344310">16624344310</a></span>
-          <span>邮箱 <a href="mailto:2910658804@qq.com">2910658804@qq.com</a></span>
-        </p>
+        <div class="resume__identity">
+          <h1 class="resume__name">乔昶旭</h1>
+          <p class="resume__name-en" lang="en">JOCK</p>
+        </div>
+        <dl class="resume__meta">
+          <div class="resume__meta-item">
+            <dt>出生日期</dt>
+            <dd>2004.3.15</dd>
+          </div>
+          <div class="resume__meta-item">
+            <dt>手机</dt>
+            <dd><a href="tel:16624344310">16624344310</a></dd>
+          </div>
+          <div class="resume__meta-item">
+            <dt>邮箱</dt>
+            <dd><a href="mailto:2910658804@qq.com">2910658804@qq.com</a></dd>
+          </div>
+        </dl>
       </header>
 
       <section class="resume__section" aria-labelledby="edu-title">
-        <h2 id="edu-title" class="resume__title">教育经历</h2>
+        <h2 id="edu-title" class="resume__title">
+          <span class="resume__index" aria-hidden="true">01</span>教育经历
+        </h2>
         <div class="resume__entry">
           <div class="resume__row">
             <h3 class="resume__org">昆明城市学院</h3>
@@ -45,7 +59,9 @@
       </section>
 
       <section class="resume__section" aria-labelledby="intern-title">
-        <h2 id="intern-title" class="resume__title">实习经历</h2>
+        <h2 id="intern-title" class="resume__title">
+          <span class="resume__index" aria-hidden="true">02</span>实习经历
+        </h2>
 
         <div class="resume__entry">
           <div class="resume__row">
@@ -75,16 +91,36 @@
       </section>
 
       <section class="resume__section" aria-labelledby="skill-title">
-        <h2 id="skill-title" class="resume__title">专业技能</h2>
-        <ul class="resume__list">
-          <li><strong>算法能力：</strong>熟练掌握机器学习回归、分类、聚类核心算法，精通 CNN、RNN、Transformer、YOLO 等深度学习模型，了解强化学习、迁移学习前沿算法，能结合业务场景精准选型。在校论文“YOLO 在无人机小目标检测中的应用”获优秀毕业论文。</li>
-          <li><strong>编程与工具：</strong>具有部署 AI Agent 相关经验。精通 Python 编程语言，熟练运用 NumPy、Pandas 数据处理、Matplotlib 可视化；熟练操作 TensorFlow、PyTorch 深度学习框架，可高效落地传统机器学习与深度学习任务。独立完成能源分析及预测的可视化系统。</li>
-          <li><strong>应用实践：</strong>具备用户行为数据分析、预测类项目实战经验，了解模型部署基本流程，可快速适配企业级 AI 项目研发、数据分析与业务落地需求。</li>
-        </ul>
+        <h2 id="skill-title" class="resume__title">
+          <span class="resume__index" aria-hidden="true">03</span>专业技能
+        </h2>
+        <div class="resume__skills">
+          <article class="resume__skill">
+            <h3 class="resume__skill-title">大模型部署与推理</h3>
+            <p>具备 Qwen 大模型的服务器端部署经验：基于 vLLM 推理框架在 A100 GPU 环境完成模型加载、服务启动与接口调试，理解显存管理、批处理调度与推理延迟优化，可独立排查部署链路中的常见问题。</p>
+          </article>
+
+          <article class="resume__skill">
+            <h3 class="resume__skill-title">AI Agent 应用</h3>
+            <p>熟练使用主流 AI Agent 工具与工作流，具备工具调用、任务编排与结果校验的实践经验，能够围绕具体业务场景设计并落地自动化流程。</p>
+          </article>
+
+          <article class="resume__skill">
+            <h3 class="resume__skill-title">深度学习算法</h3>
+            <p>系统掌握 CNN、RNN、Transformer、YOLO 等主流网络结构，熟悉回归、分类、聚类等机器学习方法，了解强化学习与迁移学习前沿进展，具备按业务场景选型与调优的能力；在校论文“YOLO 在无人机小目标检测中的应用”获评优秀毕业论文。</p>
+          </article>
+
+          <article class="resume__skill">
+            <h3 class="resume__skill-title">编程与数据工程</h3>
+            <p>以 Python 为主力语言，熟练使用 NumPy、Pandas、Matplotlib 完成数据清洗、特征工程与可视化，掌握 TensorFlow、PyTorch 深度学习框架；可独立完成从数据处理、模型训练到可视化报表的完整链路，独立完成能源分析及预测的可视化系统；具备用户行为分析与预测类项目经验，了解模型服务化部署流程。</p>
+          </article>
+        </div>
       </section>
 
       <section class="resume__section" aria-labelledby="campus-title">
-        <h2 id="campus-title" class="resume__title">校园经历</h2>
+        <h2 id="campus-title" class="resume__title">
+          <span class="resume__index" aria-hidden="true">04</span>校园经历
+        </h2>
         <h3 class="resume__subtitle">（一）管理与组织能力</h3>
         <ul class="resume__list">
           <li><strong>班级班长（2022.09 – 2024.06）：</strong>统筹班级日常事务与师生沟通，运用 Excel 数据分析班级考勤、成绩分布情况，针对性组织学术交流、技能分享活动 15+ 场，提升团队凝聚力与学习效率。</li>
@@ -94,7 +130,9 @@
       </section>
 
       <section class="resume__section" aria-labelledby="award-title">
-        <h2 id="award-title" class="resume__title">荣誉奖项</h2>
+        <h2 id="award-title" class="resume__title">
+          <span class="resume__index" aria-hidden="true">05</span>荣誉奖项
+        </h2>
         <h3 class="resume__subtitle">（一）竞赛奖项</h3>
         <ul class="resume__list">
           <li><strong>2023 年 北方国际大学联盟“频蓝”数据应用大赛三等奖：</strong>聚焦企业真实数据应用场景，完成数据清洗、建模与可视化全流程。</li>
@@ -110,7 +148,9 @@
       </section>
 
       <section class="resume__section" aria-labelledby="self-title">
-        <h2 id="self-title" class="resume__title">自我评价</h2>
+        <h2 id="self-title" class="resume__title">
+          <span class="resume__index" aria-hidden="true">06</span>自我评价
+        </h2>
         <ul class="resume__list">
           <li>主动学习，有独立思考能力，主动为公司创造价值。</li>
           <li>熟悉人工智能与数据分析领域，兼具扎实的理论基础、企业级项目实战经验与竞赛实操经历，可快速上手数据处理、特征工程、模型搭建、可视化报表制作等核心工作。</li>
