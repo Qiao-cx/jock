@@ -1,0 +1,353 @@
+/* ============================================================
+   JOCK / 乔昶旭 — 个人网站
+   工程蓝图 · 纸白 / 墨蓝 / 朱砂红
+   ============================================================ */
+
+/* ---------- 字体 ---------- */
+@font-face {
+  font-family: "Archivo";
+  src: url("../fonts/archivo-latin-wght-normal.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ---------- 设计 Token ---------- */
+:root {
+  /* 色板 */
+  --color-bg: #f7f6f2;            /* 暖纸白，非纯白 */
+  --color-surface: #ffffff;
+  --color-ink: #26282c;           /* 正文 ≈12.5:1 */
+  --color-ink-soft: #454a50;      /* 二级 ≈8.4:1 */
+  --color-muted: #676c73;         /* 三级 ≈5:1 */
+  --color-accent: #b03a24;        /* 朱砂 ≈5.4:1 */
+  --color-accent-soft: #f2deda;   /* 选中/芯片底 */
+  --color-hairline: rgba(38, 40, 44, 0.12);
+  --color-gridline: rgba(38, 40, 44, 0.06);
+
+  /* 字阶（1rem 地板 + clamp） */
+  --step-0: 1rem;
+  --step-1: clamp(1.0625rem, 1rem + 0.25vw, 1.25rem);
+  --step-2: clamp(1.25rem, 1.1rem + 0.6vw, 1.75rem);
+  --step-3: clamp(1.75rem, 1.3rem + 1.5vw, 2.75rem);   /* 座右铭 */
+  --step-4: clamp(2.5rem, 1.8rem + 3.5vw, 4.75rem);    /* 乔昶旭 */
+  --step-5: clamp(3.5rem, 2.6rem + 5vw, 6.5rem);       /* JOCK */
+
+  /* 间距（4 单位） */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* 其他 */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --measure: 65ch;
+  --grid-size: 56px;
+  --content-width: min(100% - 2 * var(--space-6), 1100px);
+
+  /* 动效 */
+  --dur-micro: 160ms;
+  --dur-base: 240ms;
+  --dur-entrance: 900ms;
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-default: cubic-bezier(0.33, 1, 0.68, 1);
+
+  /* 焦点 */
+  --ring: 2px solid var(--color-accent);
+  --ring-offset: 3px;
+
+  /* 字体栈：拉丁 Archivo，CJK 落系统字体 */
+  --font-sans: "Archivo", "PingFang SC", "Hiragino Sans GB",
+    "Microsoft YaHei", "Noto Sans CJK SC", "Segoe UI", system-ui, sans-serif;
+}
+
+/* ---------- 重置 + 基础 ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  font-size: var(--step-0);
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 平滑滚动只在「允许动效」时开 */
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* 背景发丝网格（始终可见，无 JS） */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, var(--color-gridline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-gridline) 1px, transparent 1px);
+  background-size: var(--grid-size) var(--grid-size);
+  /* 柔和的径向暗角让网格向中心淡出 */
+  background-image:
+    radial-gradient(ellipse 80% 70% at 50% 40%, transparent 30%, var(--color-bg) 100%),
+    linear-gradient(to right, var(--color-gridline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-gridline) 1px, transparent 1px);
+  background-blend-mode: normal;
+}
+
+/* 平台化主题：选区、滚动条、焦点环 */
+::selection {
+  background: var(--color-accent-soft);
+  color: var(--color-ink);
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-hairline) transparent;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-hairline);
+  border-radius: var(--radius-sm);
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+:focus-visible {
+  outline: var(--ring);
+  outline-offset: var(--ring-offset);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-accent);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.18em;
+}
+
+/* ---------- 跳过链接 ---------- */
+.skip-link {
+  position: absolute;
+  top: var(--space-4);
+  left: var(--space-4);
+  z-index: 100;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-ink);
+  color: var(--color-bg);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  transform: translateY(-200%);
+  transition: transform var(--dur-base) var(--ease-default);
+}
+.skip-link:focus-visible {
+  transform: none;
+}
+
+/* ---------- 布局 ---------- */
+.container {
+  width: var(--content-width);
+  margin-inline: auto;
+}
+
+main {
+  flex: 1;
+}
+
+/* ---------- 按钮 ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 48px;
+  padding: var(--space-3) var(--space-6);
+  font-family: var(--font-sans);
+  font-size: var(--step-1);
+  font-weight: 700;
+  color: var(--color-ink);
+  background: transparent;
+  border: 1px solid var(--color-ink);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  text-decoration: none;
+  transition:
+    background var(--dur-micro) var(--ease-default),
+    color var(--dur-micro) var(--ease-default);
+}
+.btn:hover {
+  background: var(--color-ink);
+  color: var(--color-bg);
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg);
+}
+.btn--primary:hover {
+  background: var(--color-ink);
+  border-color: var(--color-ink);
+  color: var(--color-bg);
+}
+
+/* ---------- 区块通用 ---------- */
+.section {
+  padding-block: var(--space-9);
+  border-top: 1px solid var(--color-hairline);
+  scroll-margin-block: 4rem;
+}
+.section__title {
+  font-size: var(--step-2);
+  font-weight: 700;
+  text-wrap: balance;
+  margin-bottom: var(--space-5);
+}
+.section__body {
+  max-width: var(--measure);
+  line-height: 1.75;
+}
+
+/* ---------- 主页 Hero ---------- */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding-block: var(--space-8);
+}
+.hero__name-cn {
+  font-size: var(--step-4);
+  font-weight: 700;
+  line-height: 1.15;
+  text-wrap: balance;
+}
+.hero__name-en {
+  font-size: var(--step-5);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: 0.08em;
+  text-wrap: balance;
+  margin-top: var(--space-3);
+}
+.hero__motto {
+  font-size: var(--step-3);
+  font-weight: 700;
+  text-wrap: balance;
+  margin-top: var(--space-7);
+}
+.hero__cta {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-4);
+  margin-top: var(--space-8);
+}
+.hero__hint {
+  margin-top: var(--space-6);
+  font-size: var(--step-0);
+  color: var(--color-muted);
+}
+
+/* ---------- 入场动画（一个序列，CSS 渐进增强） ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  .hero__name-cn,
+  .hero__name-en,
+  .hero__motto,
+  .hero__cta {
+    animation: rise var(--dur-entrance) var(--ease-expo) backwards;
+  }
+  .hero__name-en {
+    animation-delay: 110ms;
+  }
+  .hero__motto {
+    animation-delay: 220ms;
+  }
+  .hero__cta {
+    animation-delay: 330ms;
+  }
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* ---------- 粒子 canvas（渐进增强，JS 控制） ---------- */
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* ---------- 响应式 ---------- */
+@media (max-width: 640px) {
+  .hero__cta {
+    flex-direction: column;
+    width: 100%;
+    max-width: 320px;
+    margin-inline: auto;
+  }
+  .btn {
+    width: 100%;
+  }
+}
+
+/* ---------- reduced-motion 全局覆盖 ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
