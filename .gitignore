@@ -6,6 +6,12 @@ Thumbs.db
 # Node
 node_modules/
 
+# impeccable 引擎二进制（本地运行用，不入库）
+.claude/skills/impeccable/scripts/bin/
+
+# 本地 Claude Code 设置（含本机权限）
+.claude/settings.local.json
+
 # impeccable-ignore-start
 # 可提交（保留跟踪）：.impeccable/config.json、.impeccable/design.json、
 # .impeccable/surfaces/*.md、.impeccable/critique/*.md
