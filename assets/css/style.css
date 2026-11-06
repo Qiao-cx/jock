@@ -204,6 +204,7 @@ main {
   border-radius: var(--radius-sm);
   cursor: pointer;
   text-decoration: none;
+  touch-action: manipulation; /* 手机端防双击缩放 */
   transition:
     background var(--dur-micro) var(--ease-default),
     color var(--dur-micro) var(--ease-default);
@@ -518,6 +519,8 @@ main {
   display: block;
   width: 100%;
   height: auto;
+  /* 棋盘上滑动不滚动页面（手机端手势控制） */
+  touch-action: none;
 }
 .snake__hint {
   font-size: var(--step-0);
@@ -537,6 +540,7 @@ main {
   color: var(--color-ink);
   font-size: 1.25rem;
   cursor: pointer;
+  touch-action: manipulation;
   transition:
     background var(--dur-micro) var(--ease-default),
     color var(--dur-micro) var(--ease-default);
@@ -567,6 +571,15 @@ main {
   .clock {
     right: var(--space-4);
     bottom: var(--space-4);
+  }
+  /* 触屏方向键在手机上加大，方便拇指点按 */
+  .snake__pad {
+    grid-template-columns: repeat(3, 56px);
+    grid-template-rows: repeat(3, 56px);
+  }
+  .pad-btn {
+    min-height: 56px;
+    font-size: 1.5rem;
   }
 }
 

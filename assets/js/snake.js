@@ -188,11 +188,9 @@
     D: { x: 1, y: 0 }
   };
 
-  /* 方向键 / WASD：未开始时按下任一方向键即自动开局 */
-  document.addEventListener("keydown", function (e) {
-    var nd = KEYS[e.key];
+  /* 统一的方向指令入口：自动处理开局 / 重开 / 游戏中换向 */
+  function applyDir(nd) {
     if (!nd) return;
-    e.preventDefault();
     if (dead) begin();
     else if (!running) {
       begin();
@@ -200,6 +198,14 @@
     } else {
       nextDir = nd;
     }
+  }
+
+  /* 键盘：方向键 / WASD */
+  document.addEventListener("keydown", function (e) {
+    var nd = KEYS[e.key];
+    if (!nd) return;
+    e.preventDefault();
+    applyDir(nd);
   });
 
   /* 触屏方向键 */
@@ -211,17 +217,47 @@
   };
   document.querySelectorAll(".pad-btn").forEach(function (btn) {
     btn.addEventListener("click", function () {
-      var nd = DIR_MAP[btn.dataset.dir];
-      if (!nd) return;
-      if (dead) begin();
-      else if (!running) {
-        begin();
-        nextDir = nd;
-      } else {
-        nextDir = nd;
-      }
+      applyDir(DIR_MAP[btn.dataset.dir]);
     });
   });
+
+  /* 触屏滑动手势：在棋盘上滑动改变方向 */
+  var boardEl = document.querySelector(".snake__board");
+  var touchStart = null;
+  if (boardEl) {
+    boardEl.addEventListener(
+      "touchstart",
+      function (e) {
+        touchStart = {
+          x: e.touches[0].clientX,
+          y: e.touches[0].clientY
+        };
+      },
+      { passive: true }
+    );
+    /* touch-action: none 已在 CSS 中设置，这里阻止默认滚动兜底 */
+    boardEl.addEventListener(
+      "touchmove",
+      function (e) {
+        if (e.cancelable) e.preventDefault();
+      },
+      { passive: false }
+    );
+    boardEl.addEventListener("touchend", function (e) {
+      if (!touchStart) return;
+      var dx = e.changedTouches[0].clientX - touchStart.x;
+      var dy = e.changedTouches[0].clientY - touchStart.y;
+      touchStart = null;
+      if (Math.abs(dx) < 20 && Math.abs(dy) < 20) return; /* 视为点按，忽略 */
+      var nd;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        nd = dx > 0 ? { x: 1, y: 0 } : { x: -1, y: 0 };
+      } else {
+        nd = dy > 0 ? { x: 0, y: 1 } : { x: 0, y: -1 };
+      }
+      applyDir(nd);
+    });
+  }
 
   /* 开始 / 重开按钮 */
   startBtn.addEventListener("click", function () {
